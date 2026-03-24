@@ -91,40 +91,43 @@ body {
     padding: 0 16px;
 }
 
-/* Preço antigo - amarelo mais fraco */
+/* Preço antigo */
 .valor-antigo {
-    font-size: 2.3rem;
+    font-size: 2.1rem;
     font-weight: 600;
-    color: #d4b800;
-    text-decoration: line-through;
+    color: #ffd700;           /* amarelo normal */
     margin-bottom: 12px;
 }
+.valor-antigo span {
+    text-decoration: line-through;   /* só o valor fica riscado */
+    color: #d4b800;
+}
 
-/* Preço promocional com "POR" na mesma linha */
+/* POR + Preço novo na mesma linha */
 .valor-promocional {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
+    gap: 14px;
     margin-bottom: 20px;
 }
 
 .por {
-    font-size: 2.2rem;
+    font-size: 2.1rem;        /* mesmo tamanho do "De" */
     font-weight: 700;
     color: #ffd700;
     letter-spacing: 2px;
 }
 
 .valor {
-    font-size: 5.6rem;
+    font-size: 4.8rem;        /* um pouco menor */
     font-weight: 900;
     color: var(--dourado);
     line-height: 1;
     animation: pulse 2s infinite ease-in-out;
 }
 .valor small {
-    font-size: 0.4em;
+    font-size: 0.42em;
     vertical-align: super;
 }
 
@@ -193,9 +196,12 @@ button:hover {
 <div class="promocao-relampago">🔥 PROMOÇÃO RELÂMPAGO 🔥</div>
 
 <div class="conteudo">
-    <div class="valor-antigo">De R$ 15,00</div>
+    <!-- De R$ 15,00 (só o valor riscado) -->
+    <div class="valor-antigo">
+        De <span>R$ 15,00</span>
+    </div>
     
-    <!-- POR + R$ 4,99 na mesma linha -->
+    <!-- POR R$ 4,99 na mesma linha -->
     <div class="valor-promocional">
         <span class="por">POR</span>
         <span class="valor">R$ 4,99</span>
