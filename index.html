@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Grupo VIP - Promoção Relâmpago</title>
+
 <!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s)
@@ -20,7 +21,6 @@ fbq('track', 'PageView');
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=2036397443882964&ev=PageView&noscript=1"
 /></noscript>
-<!-- End Meta Pixel Code -->
 
 <style>
 :root {
@@ -62,23 +62,24 @@ body {
 
 .promocao-relampago {
     position: absolute;
-    top: 28%;
+    top: 27%;
     left: 50%;
     transform: translate(-50%, -50%);
     background: #e63939;
     color: white;
     font-weight: 900;
-    padding: 8px 24px;
+    padding: 10px 32px;
     border-radius: 50px;
-    font-size: 1.4rem;
-    letter-spacing: 2px;
-    box-shadow: 0 0 20px rgba(230, 57, 57, 0.8);
-    animation: piscar 1.5s infinite;
+    font-size: 1.45rem;
+    letter-spacing: 3px;
+    white-space: nowrap;           /* ← Garante que fique em uma linha só */
+    box-shadow: 0 0 25px rgba(230, 57, 57, 0.9);
+    animation: piscar 1.4s infinite;
     z-index: 10;
 }
 @keyframes piscar {
     0%, 100% { opacity: 1; }
-    50% { opacity: 0.7; }
+    50% { opacity: 0.75; }
 }
 
 .conteudo {
@@ -92,30 +93,39 @@ body {
 
 /* Preço antigo tachado */
 .valor-antigo {
-    font-size: 2.2rem;
+    font-size: 2.1rem;
     font-weight: 600;
-    color: #999;
+    color: #aaa;
     text-decoration: line-through;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
-/* Preço novo */
+/* "Por apenas" pequeno */
+.por-apenas {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ffd700;
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+}
+
+/* Preço novo grande */
 .valor {
-    font-size: 5.2rem;
+    font-size: 5.4rem;
     font-weight: 900;
     color: var(--dourado);
-    margin-bottom: 10px;
-    animation: pulse 2s infinite ease-in-out;
     line-height: 1;
+    margin-bottom: 12px;
+    animation: pulse 2s infinite ease-in-out;
 }
 .valor small {
-    font-size: 0.45em;
+    font-size: 0.4em;
     vertical-align: super;
 }
 
 @keyframes pulse {
     0% { transform: scale(1); }
-    50% { transform: scale(1.08); }
+    50% { transform: scale(1.09); }
     100% { transform: scale(1); }
 }
 
@@ -126,13 +136,12 @@ body {
     border-radius: 14px;
     background: linear-gradient(135deg, rgba(75,42,130,0.35), rgba(45,22,80,0.35));
     border: 1px solid rgba(255,215,0,0.25);
-    margin-bottom: 20px;
+    margin: 20px 0;
 }
 
 .texto-pix {
-    font-size: 1.1rem;
+    font-size: 1.12rem;
     font-weight: 600;
-    word-break: break-all;
 }
 
 button {
@@ -155,16 +164,14 @@ button {
 button:hover {
     transform: translateY(-2px) scale(1.02);
     filter: brightness(1.15);
-    box-shadow: 0 16px 32px rgba(255,215,0,0.8);
 }
 
 #mensagem-copiado {
-    height: 20px;
+    height: 22px;
     font-size: 0.95rem;
     color: var(--dourado);
     opacity: 0;
     transition: opacity 0.4s;
-    margin-bottom: 10px;
 }
 
 .aviso {
@@ -178,14 +185,13 @@ button:hover {
 
 <div class="titulo-topo">GRUPO VIP</div>
 
-<!-- Promoção Relâmpago -->
+<!-- Promoção Relâmpago em uma única linha -->
 <div class="promocao-relampago">🔥 PROMOÇÃO RELÂMPAGO 🔥</div>
 
 <div class="conteudo">
-    <!-- Preço antigo tachado -->
     <div class="valor-antigo">De R$ 15,00</div>
     
-    <!-- Preço novo -->
+    <div class="por-apenas">Por apenas</div>
     <div class="valor">R$ 4,99</div>
 
     <div class="area-pix">
@@ -212,11 +218,7 @@ function copiarPix() {
         msg.innerText = "✅ Chave copiada com sucesso!";
         msg.style.opacity = 1;
         setTimeout(() => msg.style.opacity = 0, 2500);
-        
-        fbq('trackCustom', 'CopiarChavePix', {
-            content_name: 'Grupo VIP',
-            content_category: 'assinatura_pix'
-        });
+        fbq('trackCustom', 'CopiarChavePix', { content_name: 'Grupo VIP' });
     });
 }
 
@@ -224,13 +226,11 @@ function enviarComprovante() {
     fbq('trackCustom', 'EnviarComprovante', {
         value: 4.99,
         currency: 'BRL',
-        content_name: 'Grupo VIP - Promoção Relâmpago',
-        content_category: 'assinatura_pix'
+        content_name: 'Grupo VIP - Promoção Relâmpago'
     });
     window.open('https://t.me/ADM_GRUPOVIP8', '_blank');
 }
 
-// Evento de visualização da página
 fbq('track', 'ViewContent');
 </script>
 </body>
