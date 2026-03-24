@@ -95,37 +95,42 @@ body {
 .valor-antigo {
     font-size: 2.3rem;
     font-weight: 600;
-    color: #d4b800;           /* amarelo mais fraco */
+    color: #d4b800;
     text-decoration: line-through;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
 }
 
-/* POR maior */
+/* Preço promocional com "POR" na mesma linha */
+.valor-promocional {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
 .por {
-    font-size: 1.35rem;
+    font-size: 2.2rem;
     font-weight: 700;
     color: #ffd700;
-    margin-bottom: 4px;
     letter-spacing: 2px;
 }
 
-/* Preço novo */
 .valor {
-    font-size: 5.5rem;
+    font-size: 5.6rem;
     font-weight: 900;
     color: var(--dourado);
     line-height: 1;
-    margin-bottom: 12px;
     animation: pulse 2s infinite ease-in-out;
 }
 .valor small {
-    font-size: 0.42em;
+    font-size: 0.4em;
     vertical-align: super;
 }
 
 @keyframes pulse {
     0% { transform: scale(1); }
-    50% { transform: scale(1.09); }
+    50% { transform: scale(1.08); }
     100% { transform: scale(1); }
 }
 
@@ -190,8 +195,11 @@ button:hover {
 <div class="conteudo">
     <div class="valor-antigo">De R$ 15,00</div>
     
-    <div class="por">POR</div>
-    <div class="valor">R$ 4,99</div>
+    <!-- POR + R$ 4,99 na mesma linha -->
+    <div class="valor-promocional">
+        <span class="por">POR</span>
+        <span class="valor">R$ 4,99</span>
+    </div>
 
     <div class="area-pix">
         <div class="texto-pix">
