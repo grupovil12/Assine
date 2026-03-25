@@ -49,7 +49,7 @@ body {
 
 .titulo-topo {
     position: absolute;
-    top: 18%;
+    top: 22%;
     left: 50%;
     transform: translate(-50%, -50%) scale(1.05);
     font-weight: 900;
@@ -60,9 +60,10 @@ body {
     font-size: clamp(3.8rem, 13vw, 5.8rem);
 }
 
+/* Promoção Relâmpago */
 .promocao-relampago {
     position: absolute;
-    top: 27%;
+    top: 9%;
     left: 50%;
     transform: translate(-50%, -50%);
     background: #e63939;
@@ -75,7 +76,7 @@ body {
     white-space: nowrap;
     box-shadow: 0 0 25px rgba(230, 57, 57, 0.9);
     animation: piscar 1.4s infinite;
-    z-index: 10;
+    z-index: 20;
 }
 @keyframes piscar {
     0%, 100% { opacity: 1; }
@@ -91,38 +92,30 @@ body {
     padding: 0 16px;
 }
 
-/* Preço antigo - R$ 15,00 aumentado em 10% */
+/* Apenas o valor antigo riscado (sem "De") */
 .valor-antigo {
-    font-size: 2.64rem;        /* +10% */
+    font-size: 2.52rem;
     font-weight: 600;
     color: #ffd700;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 .valor-antigo span {
     text-decoration: line-through;
     color: #d4b800;
-    text-decoration-thickness: 2.5px;   /* linha mais fina */
+    text-decoration-thickness: 2.5px;
     text-underline-offset: 4px;
 }
 
-/* POR + Preço novo */
+/* Apenas o valor promocional (sem "Por") */
 .valor-promocional {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 14px;
     margin-bottom: 20px;
 }
 
-.por {
-    font-size: 2.1rem;
-    font-weight: 700;
-    color: #ffd700;
-    letter-spacing: 2px;
-}
-
 .valor {
-    font-size: 4.18rem;        /* -5% */
+    font-size: 4.18rem;
     font-weight: 900;
     color: var(--dourado);
     line-height: 1;
@@ -193,19 +186,18 @@ button:hover {
 </head>
 <body>
 
-<div class="titulo-topo">GRUPO VIP</div>
-
 <div class="promocao-relampago">🔥 PROMOÇÃO RELÂMPAGO 🔥</div>
 
+<div class="titulo-topo">GRUPO VIP</div>
+
 <div class="conteudo">
-    <!-- De R$ 15,00 (só o valor riscado) -->
+    <!-- Apenas R$ 15,00 riscado -->
     <div class="valor-antigo">
-        De <span>R$ 15,00</span>
+        <span>R$ 15,00</span>
     </div>
     
-    <!-- POR R$ 4,99 na mesma linha -->
+    <!-- Apenas R$ 4,99 promocional -->
     <div class="valor-promocional">
-        <span class="por">POR</span>
         <span class="valor">R$ 4,99</span>
     </div>
 
