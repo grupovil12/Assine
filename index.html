@@ -1,244 +1,134 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Grupo VIP - Promoção Relâmpago</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Continue</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap');
 
-<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '2036397443882964');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=2036397443882964&ev=PageView&noscript=1"
-/></noscript>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-<style>
-:root {
-    --roxo-escuro: #12091f;
-    --roxo: #2d1650;
-    --roxo-claro: #4b2a82;
-    --dourado: #FFD700;
-    --texto: #e8e6f0;
-}
-body {
-    margin: 0;
-    height: 100vh;
-    font-family: "Poppins", system-ui, Arial, sans-serif;
-    color: var(--texto);
-    text-align: center;
-    background: linear-gradient(-45deg, var(--roxo-escuro), var(--roxo), #1a0f2e);
-    background-size: 300% 300%;
-    animation: fundo 18s ease infinite;
-    overflow: hidden;
-}
-@keyframes fundo {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
+    body {
+      background: linear-gradient(135deg, #1e0533, #0a0020);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
 
-.titulo-topo {
-    position: absolute;
-    top: 22%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(1.05);
-    font-weight: 900;
-    white-space: nowrap;
-    letter-spacing: 3px;
-    color: var(--dourado);
-    text-shadow: 0 0 10px rgba(255,215,0,.7), 0 0 25px rgba(255,215,0,.6), 0 0 45px rgba(255,215,0,.45);
-    font-size: clamp(3.8rem, 13vw, 5.8rem);
-}
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
+      animation: subtleMove 20s linear infinite;
+      z-index: 1;
+    }
 
-/* Promoção Relâmpago */
-.promocao-relampago {
-    position: absolute;
-    top: 9%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #e63939;
-    color: white;
-    font-weight: 900;
-    padding: 10px 32px;
-    border-radius: 50px;
-    font-size: 1.45rem;
-    letter-spacing: 3px;
-    white-space: nowrap;
-    box-shadow: 0 0 25px rgba(230, 57, 57, 0.9);
-    animation: piscar 1.4s infinite;
-    z-index: 20;
-}
-@keyframes piscar {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.75; }
-}
+    .container {
+      text-align: center;
+      z-index: 2;
+      padding: 40px;
+    }
 
-.conteudo {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 0 16px;
-}
+    h1 {
+      color: #ffffff;
+      font-size: 3.8rem;
+      margin-bottom: 20px;
+      text-shadow: 0 0 30px rgba(255, 0, 255, 0.6);
+      animation: glowText 2s ease-in-out infinite alternate;
+    }
 
-/* Apenas o valor antigo riscado (sem "De") */
-.valor-antigo {
-    font-size: 2.52rem;
-    font-weight: 600;
-    color: #ffd700;
-    margin-bottom: 8px;
-}
-.valor-antigo span {
-    text-decoration: line-through;
-    color: #d4b800;
-    text-decoration-thickness: 2.5px;
-    text-underline-offset: 4px;
-}
+    .subtitle {
+      color: #c0a3ff;
+      font-size: 1.5rem;
+      margin-bottom: 60px;
+      opacity: 0.9;
+    }
 
-/* Apenas o valor promocional (sem "Por") */
-.valor-promocional {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-}
+    .pulse-button {
+      display: inline-block;
+      padding: 35px 90px;
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: #ffffff;
+      background: linear-gradient(45deg, #ff00cc, #00ffff, #ff00cc);
+      background-size: 300% 300%;
+      border: none;
+      border-radius: 60px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      box-shadow: 0 0 40px rgba(255, 0, 204, 0.8),
+                  0 0 80px rgba(0, 255, 255, 0.5);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      animation: pulse 2s infinite ease-in-out;
+    }
 
-.valor {
-    font-size: 4.18rem;
-    font-weight: 900;
-    color: var(--dourado);
-    line-height: 1;
-    animation: pulse 2s infinite ease-in-out;
-}
-.valor small {
-    font-size: 0.42em;
-    vertical-align: super;
-}
+    .pulse-button:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 60px rgba(255, 0, 204, 1),
+                  0 0 100px rgba(0, 255, 255, 0.8);
+    }
 
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.08); }
-    100% { transform: scale(1); }
-}
+    .pulse-button::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s;
+      animation: shine 3s infinite;
+    }
 
-.area-pix {
-    width: 100%;
-    max-width: 420px;
-    padding: 18px;
-    border-radius: 14px;
-    background: linear-gradient(135deg, rgba(75,42,130,0.35), rgba(45,22,80,0.35));
-    border: 1px solid rgba(255,215,0,0.25);
-    margin: 20px 0;
-}
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
 
-.texto-pix {
-    font-size: 1.12rem;
-    font-weight: 600;
-}
+    @keyframes glowText {
+      from { text-shadow: 0 0 20px rgba(255, 0, 255, 0.5); }
+      to { text-shadow: 0 0 40px rgba(0, 255, 255, 0.8); }
+    }
 
-button {
-    width: 100%;
-    max-width: 420px;
-    padding: 18px;
-    border-radius: 14px;
-    border: none;
-    font-size: 1.25rem;
-    font-weight: 700;
-    cursor: pointer;
-    color: #000;
-    background: linear-gradient(135deg, #FFD700, #e6c200);
-    box-shadow: 0 10px 22px rgba(255,215,0,0.6);
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-    transition: 0.25s;
-    margin-bottom: 12px;
-}
+    @keyframes shine {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 0.6; }
+    }
 
-button:hover {
-    transform: translateY(-2px) scale(1.02);
-    filter: brightness(1.15);
-}
-
-#mensagem-copiado {
-    height: 22px;
-    font-size: 0.95rem;
-    color: var(--dourado);
-    opacity: 0;
-    transition: opacity 0.4s;
-}
-
-.aviso {
-    font-size: 0.9rem;
-    color: #d6d2e5;
-    max-width: 420px;
-}
-</style>
+    .link {
+      text-decoration: none;
+      color: inherit;
+    }
+  </style>
 </head>
 <body>
-
-<div class="promocao-relampago">🔥 PROMOÇÃO RELÂMPAGO 🔥</div>
-
-<div class="titulo-topo">GRUPO VIP</div>
-
-<div class="conteudo">
-    <!-- Apenas R$ 15,00 riscado -->
-    <div class="valor-antigo">
-        <span>R$ 15,00</span>
-    </div>
+  <div class="container">
+    <h1>Ready to Continue?</h1>
+    <p class="subtitle">Click the button below to proceed</p>
     
-    <!-- Apenas R$ 4,99 promocional -->
-    <div class="valor-promocional">
-        <span class="valor">R$ 1,99</span>
-    </div>
-
-    <div class="area-pix">
-        <div class="texto-pix">
-            Chave PIX: <b>pagamentovip10@gmail.com</b>
-        </div>
-    </div>
-
-    <button onclick="copiarPix()">📋 Copiar chave PIX</button>
-    <div id="mensagem-copiado"></div>
-    
-    <button onclick="enviarComprovante()">📨 Enviar comprovante</button>
-    
-    <div class="aviso">
-        Após o pagamento, envie o comprovante para liberar o acesso.
-    </div>
-</div>
-
-<script>
-function copiarPix() {
-    const chave = "pagamentovip10@gmail.com";
-    navigator.clipboard.writeText(chave).then(() => {
-        const msg = document.getElementById("mensagem-copiado");
-        msg.innerText = "✅ Chave copiada com sucesso!";
-        msg.style.opacity = 1;
-        setTimeout(() => msg.style.opacity = 0, 2500);
-        fbq('trackCustom', 'CopiarChavePix', { content_name: 'Grupo VIP' });
-    });
-}
-
-function enviarComprovante() {
-    fbq('trackCustom', 'EnviarComprovante', {
-        value: 4.99,
-        currency: 'BRL',
-        content_name: 'Grupo VIP - Promoção Relâmpago'
-    });
-    window.open('https://t.me/ADM_GRUPOVIP8', '_blank');
-}
-
-fbq('track', 'ViewContent');
-</script>
+    <a href="https://toourmarketingef.com?7CQZY=1250574" class="link" target="_blank">
+      <button class="pulse-button">
+        Click here to continue
+      </button>
+    </a>
+  </div>
 </body>
 </html>
