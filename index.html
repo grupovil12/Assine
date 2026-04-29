@@ -1,6 +1,3 @@
-Com certeza. Para elevar o tom e torná-lo mais "sensual" e sofisticado, substituí os tons alaranjados vibrantes por uma paleta de **Vinho Profundo (Burgundy)**, **Ouro Rosa** e **Violeta Noturno**. O degradê do botão agora remete a uma estética mais luxuosa e "velvet".
-Aqui está o código original, refinado e com o novo link:
-```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -10,119 +7,124 @@ Aqui está o código original, refinado e com o novo link:
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Impact:wght@400;700&display=swap');
 
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
+            padding: 20px;
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            /* Fundo mais profundo e elegante */
             background: radial-gradient(circle, #2b0010, #140008, #000000);
             overflow: hidden;
+            font-family: sans-serif;
         }
 
         .btn {
-            display: inline-flex;
+            display: flex;
             align-items: center;
             justify-content: center;
-            padding: 48px 140px;
-            font-size: 2.65rem;
+            /* Largura responsiva para não sumir no celular */
+            width: 100%;
+            max-width: 450px;
+            min-height: 120px;
+            padding: 20px;
+            
+            font-size: clamp(1.5rem, 8vw, 2.5rem); /* Fonte ajustável */
             font-family: 'Impact', sans-serif;
             font-weight: 700;
             color: #ffffff;
-            /* Paleta sensual: Vinho, Magenta Escuro e Ouro Rosa */
-            background: linear-gradient(135deg, #800020, #b00040, #4b0082, #e0115f);
-            background-size: 300% 300%;
-            border: none;
-            border-radius: 9999px;
             text-decoration: none;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            /* Brilho neon mais suave e atraente */
-            box-shadow: 0 0 60px #800020,
-                        0 0 100px #ff007f55,
-                        inset 0 5px 20px rgba(255,255,255,0.3);
-            transition: all 0.4s ease;
+            text-align: center;
+            line-height: 1.1;
+            letter-spacing: 1px;
+            
+            background: linear-gradient(135deg, #800020, #b00040, #4b0082, #e0115f);
+            background-size: 300% 300%;
+            border-radius: 100px;
+            
+            box-shadow: 0 0 50px rgba(128, 0, 32, 0.7),
+                        inset 0 5px 15px rgba(255, 255, 255, 0.3);
+            
+            transition: transform 0.3s ease;
             position: relative;
             overflow: hidden;
-            text-align: center;
-            line-height: 1.05;
-            animation: pulse 3s infinite ease-in-out, gradientShift 5s infinite alternate;
-            white-space: nowrap;
-            -webkit-text-stroke: 1.5px rgba(0,0,0,0.5);
-            paint-order: stroke fill;
+            animation: pulse 2.5s infinite ease-in-out, glow 5s infinite alternate;
+            -webkit-text-stroke: 1px rgba(0,0,0,0.6);
         }
 
-        .btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 80px #ff007f, 0 0 120px #800020;
-            filter: brightness(1.2);
+        /* Ajuste para telas muito pequenas */
+        @media (max-width: 380px) {
+            .btn {
+                padding: 15px;
+                min-height: 100px;
+            }
         }
 
-        /* Animação de pulsação orgânica */
         @keyframes pulse {
-            0%   { transform: scale(1); }
-            50%  { transform: scale(1.04); }
-            100% { transform: scale(1); }
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
-        /* Movimento suave das cores no fundo do botão */
-        @keyframes gradientShift {
+        @keyframes glow {
             0% { background-position: 0% 50%; }
             100% { background-position: 100% 50%; }
         }
 
-        .btn::before {
+        /* Brilho passando pelo botão */
+        .btn::after {
             content: '';
             position: absolute;
             top: -50%;
-            left: -50%;
-            width: 200%;
+            left: -100%;
+            width: 50%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.2) 10%, transparent 60%);
-            animation: sweep 4s infinite linear;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(30deg);
+            animation: shine 3s infinite;
         }
 
-        @keyframes sweep {
-            0% { transform: translate(-20%, -20%); }
-            100% { transform: translate(20%, 20%); }
+        @keyframes shine {
+            100% { left: 150%; }
         }
     </style>
 </head>
 <body>
 
-    <a href="https://www.profitablecpmratenetwork.com/xhzpy4ve02?key=46aacacf28db27ff1fa7fc6ea3b41cb8" class="btn" target="_blank">
+    <a href="https://www.profitablecpmratenetwork.com/xhzpy4ve02?key=46aacacf28db27ff1fa7fc6ea3b41cb8" class="btn">
         CLIQUE AQUI<br>PARA CONTINUAR
     </a>
 
     <script>
         const button = document.querySelector('.btn');
         button.addEventListener('click', function(e) {
-            // Partículas de "luxo" ao clicar
-            for(let i = 0; i < 60; i++) {
+            const rect = button.getBoundingClientRect();
+            for(let i = 0; i < 40; i++) {
                 const spark = document.createElement('div');
                 spark.style.position = 'fixed';
-                spark.style.fontSize = '1.8rem';
-                spark.style.left = (e.clientX + (Math.random() - 0.5) * 200) + 'px';
-                spark.style.top = (e.clientY + (Math.random() - 0.5) * 200) + 'px';
+                spark.style.fontSize = '1.5rem';
+                spark.style.left = e.clientX + 'px';
+                spark.style.top = e.clientY + 'px';
                 spark.style.pointerEvents = 'none';
                 spark.style.zIndex = '9999';
-                spark.style.filter = 'drop-shadow(0 0 5px #ff007f)';
-                // Emojis que combinam com o tema sensual/original
-                spark.textContent = ['💋','✨','💎','🌹'][Math.floor(Math.random()*4)];
+                spark.textContent = ['💋','✨','❤️','🌹'][Math.floor(Math.random()*4)];
                 document.body.appendChild(spark);
                 
-                // Animação de saída das partículas
-                spark.animate([
-                    { transform: 'translateY(0) scale(1)', opacity: 1 },
-                    { transform: `translateY(${(Math.random()-0.5)*100}px) scale(0)`, opacity: 0 }
-                ], { duration: 1500, easing: 'ease-out' });
+                const destinationX = (Math.random() - 0.5) * 300;
+                const destinationY = (Math.random() - 0.5) * 300;
 
-                setTimeout(() => spark.remove(), 1500);
+                spark.animate([
+                    { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+                    { transform: `translate(${destinationX}px, ${destinationY}px) scale(0)`, opacity: 0 }
+                ], { duration: 1000, easing: 'ease-out' });
+
+                setTimeout(() => spark.remove(), 1000);
             }
         });
     </script>
 </body>
 </html>
-
-```
