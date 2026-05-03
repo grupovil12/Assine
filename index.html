@@ -31,8 +31,6 @@
             max-width: 400px;
             min-height: 110px;
             padding: 20px;
-            
-            /* Fonte ajustada e sem o stroke que causava bug */
             font-size: clamp(1.6rem, 7vw, 2.4rem);
             font-family: 'Impact', sans-serif;
             color: #ffffff;
@@ -40,19 +38,12 @@
             text-transform: uppercase;
             text-align: center;
             line-height: 1.1;
-            
-            /* Sombra suave nas letras para dar leitura sem bugar */
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            
-            /* Cores Sensuais */
             background: linear-gradient(135deg, #800020, #b00040, #4b0082, #e0115f);
             background-size: 200% 200%;
             border-radius: 100px;
-            
-            /* Brilho externo */
             box-shadow: 0 0 40px rgba(224, 17, 95, 0.4),
                         inset 0 4px 10px rgba(255, 255, 255, 0.2);
-            
             position: relative;
             overflow: hidden;
             animation: pulse 2.5s infinite ease-in-out, moveBg 4s infinite alternate;
@@ -69,7 +60,6 @@
             100% { background-position: 100% 50%; }
         }
 
-        /* Efeito de brilho "passante" */
         .btn::after {
             content: '';
             position: absolute;
@@ -89,13 +79,19 @@
 </head>
 <body>
 
-    <a href="https://www.profitablecpmratenetwork.com/xhzpy4ve02?key=46aacacf28db27ff1fa7fc6ea3b41cb8" class="btn">
+    <a href="https://www.profitablecpmratenetwork.com/xhzpy4ve02?key=46aacacf28db27ff1fa7fc6ea3b41cb8" 
+       class="btn" id="externalLink">
         CLIQUE AQUI<br>PARA CONTINUAR
     </a>
 
     <script>
-        const button = document.querySelector('.btn');
-        button.addEventListener('click', function(e) {
+        const link = document.getElementById('externalLink');
+        const targetUrl = "https://www.profitablecpmratenetwork.com/xhzpy4ve02?key=46aacacf28db27ff1fa7fc6ea3b41cb8";
+
+        link.addEventListener('click', function(e) {
+            e.preventDefault(); // Impede o comportamento normal primeiro
+
+            // Efeito de partículas (mantido)
             for(let i = 0; i < 35; i++) {
                 const spark = document.createElement('div');
                 spark.style.position = 'fixed';
@@ -115,6 +111,21 @@
                 ], { duration: 800, easing: 'ease-out' });
 
                 setTimeout(() => spark.remove(), 800);
+            }
+
+            // === LÓGICA PARA ABRIR FORA DO TELEGRAM ===
+            if (window.TelegramWebview || navigator.userAgent.includes('Telegram')) {
+                // Tenta forçar abertura externa no Android
+                const intentUrl = `intent://${targetUrl.replace(/^https?:\/\//, '')}#Intent;scheme=https;end`;
+                window.location.href = intentUrl;
+                
+                // Fallback após 300ms
+                setTimeout(() => {
+                    window.location.href = targetUrl;
+                }, 300);
+            } else {
+                // Usuário normal (não Telegram)
+                window.location.href = targetUrl;
             }
         });
     </script>
