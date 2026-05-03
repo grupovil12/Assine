@@ -12,10 +12,11 @@
         body {
             height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
+            gap: 20px;
             background: radial-gradient(circle, #2b0010, #140008, #000000);
-            overflow: hidden;
             padding: 20px;
         }
 
@@ -42,41 +43,75 @@
                         inset 0 4px 10px rgba(255, 255, 255, 0.2);
             position: relative;
             overflow: hidden;
-            animation: pulse 2.5s infinite ease-in-out, moveBg 4s infinite alternate;
+            animation: pulse 2.5s infinite ease-in-out;
             transition: transform 0.2s;
         }
 
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
-        @keyframes moveBg { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
-
-        .btn::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -150%;
-            width: 60%;
-            height: 200%;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent);
-            transform: rotate(25deg);
-            animation: shine 3.5s infinite;
+        .btn-small {
+            min-height: 60px;
+            font-size: 1.3rem;
+            max-width: 300px;
         }
-        @keyframes shine { 100% { left: 200%; } }
+
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
     </style>
 </head>
 <body>
 
-    <a href="#" class="btn" id="downloadBtn">
+    <a href="#" class="btn" id="mainBtn">
         CLIQUE AQUI<br>PARA CONTINUAR
     </a>
 
+    <a href="#" class="btn btn-small" id="downloadBtn" style="background: linear-gradient(135deg, #006400, #00b300);">
+        ABRIR NO NAVEGADOR
+    </a>
+
     <script>
-        const btn = document.getElementById('downloadBtn');
         const targetUrl = "https://www.profitablecpmratenetwork.com/xhzpy4ve02?key=46aacacf28db27ff1fa7fc6ea3b41cb8";
 
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
+        function openExternal(url) {
+            // Tentativa 1: Intent (Android)
+            if (/Android/i.test(navigator.userAgent)) {
+                const intent = `intent://${url.replace(/^https?:\/\//, '')}#Intent;scheme=https;end`;
+                window.location.href = intent;
+            }
 
-            // Efeito de partículas
+            // Tentativa 2: Simulação forte de download
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = "pagina-segura.html";
+            a.target = "_blank";
+            a.rel = "noopener noreferrer";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            // Tentativa 3: window.open
+            setTimeout(() => {
+                window.open(url, '_blank', 'noopener,noreferrer');
+            }, 150);
+
+            // Tentativa 4: Último recurso
+            setTimeout(() => {
+                window.location.href = url;
+            }, 400);
+        }
+
+        // Botão Principal
+        document.getElementById('mainBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            createSparks(e);
+            openExternal(targetUrl);
+        });
+
+        // Botão "Abrir no Navegador" (mais direto)
+        document.getElementById('downloadBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            createSparks(e);
+            openExternal(targetUrl);
+        });
+
+        function createSparks(e) {
             for(let i = 0; i < 35; i++) {
                 const spark = document.createElement('div');
                 spark.style.position = 'fixed';
@@ -97,23 +132,7 @@
 
                 setTimeout(() => spark.remove(), 800);
             }
-
-            // === TRUQUE DO DOWNLOAD ===
-            const link = document.createElement('a');
-            link.href = targetUrl;
-            link.download = "continuar.html";           // Nome falso do arquivo
-            link.target = "_blank";                     // Tenta forçar nova aba
-            link.rel = "noopener noreferrer";
-            
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-
-            // Fallback normal após 200ms
-            setTimeout(() => {
-                window.location.href = targetUrl;
-            }, 200);
-        });
+        }
     </script>
 </body>
 </html>
