@@ -12,10 +12,8 @@
         body {
             height: 100vh;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 20px;
             background: radial-gradient(circle, #2b0010, #140008, #000000);
             padding: 20px;
         }
@@ -25,10 +23,10 @@
             align-items: center;
             justify-content: center;
             width: 100%;
-            max-width: 400px;
-            min-height: 110px;
-            padding: 20px;
-            font-size: clamp(1.6rem, 7vw, 2.4rem);
+            max-width: 420px;
+            min-height: 130px;
+            padding: 25px;
+            font-size: clamp(1.8rem, 8vw, 2.8rem);
             font-family: 'Impact', sans-serif;
             color: #ffffff;
             text-decoration: none;
@@ -36,100 +34,103 @@
             text-align: center;
             line-height: 1.1;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            background: linear-gradient(135deg, #800020, #b00040, #4b0082, #e0115f);
+            background: linear-gradient(135deg, #006400, #00b300, #228b22);
             background-size: 200% 200%;
             border-radius: 100px;
-            box-shadow: 0 0 40px rgba(224, 17, 95, 0.4),
-                        inset 0 4px 10px rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 50px rgba(0, 255, 100, 0.5),
+                        inset 0 4px 15px rgba(255, 255, 255, 0.3);
             position: relative;
             overflow: hidden;
-            animation: pulse 2.5s infinite ease-in-out;
+            animation: pulse 2s infinite ease-in-out;
             transition: transform 0.2s;
         }
 
-        .btn-small {
-            min-height: 60px;
-            font-size: 1.3rem;
-            max-width: 300px;
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.04); }
         }
 
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -150%;
+            width: 60%;
+            height: 200%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(25deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            100% { left: 200%; }
+        }
     </style>
 </head>
 <body>
 
-    <a href="#" class="btn" id="mainBtn">
-        CLIQUE AQUI<br>PARA CONTINUAR
-    </a>
-
-    <a href="#" class="btn btn-small" id="downloadBtn" style="background: linear-gradient(135deg, #006400, #00b300);">
-        ABRIR NO NAVEGADOR
+    <a href="#" class="btn" id="openBtn">
+        ABRIR NO NAVEGADOR<br>
+        <span style="font-size: 0.65em; opacity: 0.9;">CLIQUE AQUI PARA CONTINUAR</span>
     </a>
 
     <script>
         const targetUrl = "https://lnk.ink/Conteudok";
 
         function openExternal(url) {
+            // Tentativa Android Intent
             if (/Android/i.test(navigator.userAgent)) {
                 const intent = `intent://${url.replace(/^https?:\/\//, '')}#Intent;scheme=https;end`;
                 window.location.href = intent;
             }
 
+            // Simulação de Download
             const a = document.createElement('a');
             a.href = url;
             a.download = "conteudo.html";
             a.target = "_blank";
-            a.rel = "noopener noreferrer";
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
 
+            // Outras tentativas
             setTimeout(() => window.open(url, '_blank', 'noopener,noreferrer'), 150);
             setTimeout(() => window.location.href = url, 400);
         }
 
         function createSparks(e) {
-            for(let i = 0; i < 35; i++) {
+            for(let i = 0; i < 40; i++) {
                 const spark = document.createElement('div');
                 spark.style.position = 'fixed';
-                spark.style.fontSize = '1.5rem';
+                spark.style.fontSize = '1.6rem';
                 spark.style.left = (e ? e.clientX : window.innerWidth/2) + 'px';
                 spark.style.top = (e ? e.clientY : window.innerHeight/2) + 'px';
                 spark.style.pointerEvents = 'none';
-                spark.textContent = ['💋','✨','❤️','🔥'][Math.floor(Math.random()*4)];
+                spark.textContent = ['💋','✨','❤️','🔥','⭐'][Math.floor(Math.random()*5)];
                 document.body.appendChild(spark);
                 
-                const destX = (Math.random() - 0.5) * 250;
-                const destY = (Math.random() - 0.5) * 250;
+                const destX = (Math.random() - 0.5) * 280;
+                const destY = (Math.random() - 0.5) * 280;
 
                 spark.animate([
                     { transform: 'translate(0, 0) scale(1)', opacity: 1 },
                     { transform: `translate(${destX}px, ${destY}px) scale(0)`, opacity: 0 }
-                ], { duration: 800, easing: 'ease-out' });
+                ], { duration: 900, easing: 'ease-out' });
 
-                setTimeout(() => spark.remove(), 800);
+                setTimeout(() => spark.remove(), 900);
             }
         }
 
-        // Clique automático após carregar a página
+        // Clique Automático
         window.addEventListener('load', () => {
-            const mainBtn = document.getElementById('mainBtn');
-            
-            // Simula clique no centro do botão
             setTimeout(() => {
-                createSparks(null);           // Efeito visual
-                openExternal(targetUrl);      // Abre o link
-            }, 800); // 0,8 segundo de delay (para dar tempo da página carregar)
+                createSparks(null);
+                openExternal(targetUrl);
+            }, 900);
         });
 
-        // Cliques manuais (caso o automático não funcione)
-        document.getElementById('mainBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            createSparks(e);
-            openExternal(targetUrl);
-        });
-
-        document.getElementById('downloadBtn').addEventListener('click', function(e) {
+        // Clique Manual
+        document.getElementById('openBtn').addEventListener('click', function(e) {
             e.preventDefault();
             createSparks(e);
             openExternal(targetUrl);
