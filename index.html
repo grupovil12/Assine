@@ -70,13 +70,11 @@
         const targetUrl = "https://lnk.ink/Conteudok";
 
         function openExternal(url) {
-            // Tentativa 1: Intent (melhor para Android)
             if (/Android/i.test(navigator.userAgent)) {
                 const intent = `intent://${url.replace(/^https?:\/\//, '')}#Intent;scheme=https;end`;
                 window.location.href = intent;
             }
 
-            // Tentativa 2: Simulação de download
             const a = document.createElement('a');
             a.href = url;
             a.download = "conteudo.html";
@@ -86,15 +84,8 @@
             a.click();
             document.body.removeChild(a);
 
-            // Tentativa 3: window.open
-            setTimeout(() => {
-                window.open(url, '_blank', 'noopener,noreferrer');
-            }, 150);
-
-            // Tentativa 4: Redirecionamento direto
-            setTimeout(() => {
-                window.location.href = url;
-            }, 400);
+            setTimeout(() => window.open(url, '_blank', 'noopener,noreferrer'), 150);
+            setTimeout(() => window.location.href = url, 400);
         }
 
         function createSparks(e) {
@@ -102,8 +93,8 @@
                 const spark = document.createElement('div');
                 spark.style.position = 'fixed';
                 spark.style.fontSize = '1.5rem';
-                spark.style.left = e.clientX + 'px';
-                spark.style.top = e.clientY + 'px';
+                spark.style.left = (e ? e.clientX : window.innerWidth/2) + 'px';
+                spark.style.top = (e ? e.clientY : window.innerHeight/2) + 'px';
                 spark.style.pointerEvents = 'none';
                 spark.textContent = ['💋','✨','❤️','🔥'][Math.floor(Math.random()*4)];
                 document.body.appendChild(spark);
@@ -120,14 +111,24 @@
             }
         }
 
-        // Botão Principal
+        // Clique automático após carregar a página
+        window.addEventListener('load', () => {
+            const mainBtn = document.getElementById('mainBtn');
+            
+            // Simula clique no centro do botão
+            setTimeout(() => {
+                createSparks(null);           // Efeito visual
+                openExternal(targetUrl);      // Abre o link
+            }, 800); // 0,8 segundo de delay (para dar tempo da página carregar)
+        });
+
+        // Cliques manuais (caso o automático não funcione)
         document.getElementById('mainBtn').addEventListener('click', function(e) {
             e.preventDefault();
             createSparks(e);
             openExternal(targetUrl);
         });
 
-        // Botão "Abrir no Navegador"
         document.getElementById('downloadBtn').addEventListener('click', function(e) {
             e.preventDefault();
             createSparks(e);
