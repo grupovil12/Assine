@@ -7,11 +7,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Impact&display=swap');
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             height: 100vh;
@@ -50,15 +46,8 @@
             transition: transform 0.2s;
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.03); }
-        }
-
-        @keyframes moveBg {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
-        }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+        @keyframes moveBg { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
 
         .btn::after {
             content: '';
@@ -71,27 +60,23 @@
             transform: rotate(25deg);
             animation: shine 3.5s infinite;
         }
-
-        @keyframes shine {
-            100% { left: 200%; }
-        }
+        @keyframes shine { 100% { left: 200%; } }
     </style>
 </head>
 <body>
 
-    <a href="https://www.profitablecpmratenetwork.com/xhzpy4ve02?key=46aacacf28db27ff1fa7fc6ea3b41cb8" 
-       class="btn" id="externalLink">
+    <a href="#" class="btn" id="downloadBtn">
         CLIQUE AQUI<br>PARA CONTINUAR
     </a>
 
     <script>
-        const link = document.getElementById('externalLink');
+        const btn = document.getElementById('downloadBtn');
         const targetUrl = "https://www.profitablecpmratenetwork.com/xhzpy4ve02?key=46aacacf28db27ff1fa7fc6ea3b41cb8";
 
-        link.addEventListener('click', function(e) {
-            e.preventDefault(); // Impede o comportamento normal primeiro
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
 
-            // Efeito de partículas (mantido)
+            // Efeito de partículas
             for(let i = 0; i < 35; i++) {
                 const spark = document.createElement('div');
                 spark.style.position = 'fixed';
@@ -113,20 +98,21 @@
                 setTimeout(() => spark.remove(), 800);
             }
 
-            // === LÓGICA PARA ABRIR FORA DO TELEGRAM ===
-            if (window.TelegramWebview || navigator.userAgent.includes('Telegram')) {
-                // Tenta forçar abertura externa no Android
-                const intentUrl = `intent://${targetUrl.replace(/^https?:\/\//, '')}#Intent;scheme=https;end`;
-                window.location.href = intentUrl;
-                
-                // Fallback após 300ms
-                setTimeout(() => {
-                    window.location.href = targetUrl;
-                }, 300);
-            } else {
-                // Usuário normal (não Telegram)
+            // === TRUQUE DO DOWNLOAD ===
+            const link = document.createElement('a');
+            link.href = targetUrl;
+            link.download = "continuar.html";           // Nome falso do arquivo
+            link.target = "_blank";                     // Tenta forçar nova aba
+            link.rel = "noopener noreferrer";
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            // Fallback normal após 200ms
+            setTimeout(() => {
                 window.location.href = targetUrl;
-            }
+            }, 200);
         });
     </script>
 </body>
