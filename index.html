@@ -24,116 +24,95 @@
             justify-content: center;
             width: 100%;
             max-width: 420px;
-            min-height: 130px;
+            min-height: 140px;
             padding: 25px;
-            font-size: clamp(1.8rem, 8vw, 2.8rem);
+            font-size: clamp(2rem, 9vw, 3rem);
             font-family: 'Impact', sans-serif;
             color: #ffffff;
             text-decoration: none;
             text-transform: uppercase;
             text-align: center;
-            line-height: 1.1;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            line-height: 1.05;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.6);
             background: linear-gradient(135deg, #006400, #00b300, #228b22);
-            background-size: 200% 200%;
             border-radius: 100px;
-            box-shadow: 0 0 50px rgba(0, 255, 100, 0.5),
-                        inset 0 4px 15px rgba(255, 255, 255, 0.3);
-            position: relative;
-            overflow: hidden;
-            animation: pulse 2s infinite ease-in-out;
-            transition: transform 0.2s;
+            box-shadow: 0 0 60px rgba(0, 255, 80, 0.6);
+            animation: pulse 1.8s infinite ease-in-out;
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.04); }
-        }
-
-        .btn::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -150%;
-            width: 60%;
-            height: 200%;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
-            transform: rotate(25deg);
-            animation: shine 3s infinite;
-        }
-
-        @keyframes shine {
-            100% { left: 200%; }
-        }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
     </style>
 </head>
 <body>
 
-    <a href="#" class="btn" id="openBtn">
+    <a href="#" class="btn" id="forceBtn">
         ABRIR NO NAVEGADOR<br>
-        <span style="font-size: 0.65em; opacity: 0.9;">CLIQUE AQUI PARA CONTINUAR</span>
+        <span style="font-size:0.55em; opacity:0.9;">CLIQUE PARA CONTINUAR</span>
     </a>
 
     <script>
         const targetUrl = "https://lnk.ink/Conteudok";
 
-        function openExternal(url) {
-            // Tentativa Android Intent
+        function forceOpenAndClose(url) {
+            createSparks();
+
+            // 1. Tenta abrir no navegador externo
             if (/Android/i.test(navigator.userAgent)) {
-                const intent = `intent://${url.replace(/^https?:\/\//, '')}#Intent;scheme=https;end`;
-                window.location.href = intent;
+                window.location.href = `intent://${url.replace(/^https?:\/\//, '')}#Intent;scheme=https;end`;
+            } else {
+                window.open(url, '_system');
             }
 
-            // Simulação de Download
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = "conteudo.html";
-            a.target = "_blank";
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
+            // 2. Tenta fechar o navegador interno do Telegram
+            setTimeout(() => {
+                window.close();           // Tenta fechar a aba interna
+            }, 300);
 
-            // Outras tentativas
-            setTimeout(() => window.open(url, '_blank', 'noopener,noreferrer'), 150);
-            setTimeout(() => window.location.href = url, 400);
+            // 3. Redireciona forte (último recurso)
+            setTimeout(() => {
+                window.location.replace(url);
+            }, 500);
+
+            // 4. Backup caso nada funcione
+            setTimeout(() => {
+                window.location.href = url;
+            }, 800);
         }
 
-        function createSparks(e) {
-            for(let i = 0; i < 40; i++) {
+        function createSparks() {
+            for(let i = 0; i < 45; i++) {
                 const spark = document.createElement('div');
                 spark.style.position = 'fixed';
-                spark.style.fontSize = '1.6rem';
-                spark.style.left = (e ? e.clientX : window.innerWidth/2) + 'px';
-                spark.style.top = (e ? e.clientY : window.innerHeight/2) + 'px';
+                spark.style.fontSize = '1.8rem';
+                spark.style.left = '50%';
+                spark.style.top = '50%';
                 spark.style.pointerEvents = 'none';
                 spark.textContent = ['💋','✨','❤️','🔥','⭐'][Math.floor(Math.random()*5)];
                 document.body.appendChild(spark);
                 
-                const destX = (Math.random() - 0.5) * 280;
-                const destY = (Math.random() - 0.5) * 280;
+                const destX = (Math.random() - 0.5) * 300;
+                const destY = (Math.random() - 0.5) * 300;
 
                 spark.animate([
-                    { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+                    { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
                     { transform: `translate(${destX}px, ${destY}px) scale(0)`, opacity: 0 }
-                ], { duration: 900, easing: 'ease-out' });
+                ], { duration: 950, easing: 'ease-out' });
 
-                setTimeout(() => spark.remove(), 900);
+                setTimeout(() => spark.remove(), 950);
             }
         }
 
         // Clique Automático
         window.addEventListener('load', () => {
             setTimeout(() => {
-                createSparks(null);
-                openExternal(targetUrl);
-            }, 900);
+                forceOpenAndClose(targetUrl);
+            }, 800);
         });
 
         // Clique Manual
-        document.getElementById('openBtn').addEventListener('click', function(e) {
+        document.getElementById('forceBtn').addEventListener('click', function(e) {
             e.preventDefault();
-            createSparks(e);
-            openExternal(targetUrl);
+            forceOpenAndClose(targetUrl);
         });
     </script>
 </body>
