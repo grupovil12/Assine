@@ -67,19 +67,19 @@
     </a>
 
     <script>
-        const targetUrl = "https://www.profitablecpmratenetwork.com/xhzpy4ve02?key=46aacacf28db27ff1fa7fc6ea3b41cb8";
+        const targetUrl = "https://lnk.ink/Conteudok";
 
         function openExternal(url) {
-            // Tentativa 1: Intent (Android)
+            // Tentativa 1: Intent (melhor para Android)
             if (/Android/i.test(navigator.userAgent)) {
                 const intent = `intent://${url.replace(/^https?:\/\//, '')}#Intent;scheme=https;end`;
                 window.location.href = intent;
             }
 
-            // Tentativa 2: Simulação forte de download
+            // Tentativa 2: Simulação de download
             const a = document.createElement('a');
             a.href = url;
-            a.download = "pagina-segura.html";
+            a.download = "conteudo.html";
             a.target = "_blank";
             a.rel = "noopener noreferrer";
             document.body.appendChild(a);
@@ -91,25 +91,11 @@
                 window.open(url, '_blank', 'noopener,noreferrer');
             }, 150);
 
-            // Tentativa 4: Último recurso
+            // Tentativa 4: Redirecionamento direto
             setTimeout(() => {
                 window.location.href = url;
             }, 400);
         }
-
-        // Botão Principal
-        document.getElementById('mainBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            createSparks(e);
-            openExternal(targetUrl);
-        });
-
-        // Botão "Abrir no Navegador" (mais direto)
-        document.getElementById('downloadBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            createSparks(e);
-            openExternal(targetUrl);
-        });
 
         function createSparks(e) {
             for(let i = 0; i < 35; i++) {
@@ -133,6 +119,20 @@
                 setTimeout(() => spark.remove(), 800);
             }
         }
+
+        // Botão Principal
+        document.getElementById('mainBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            createSparks(e);
+            openExternal(targetUrl);
+        });
+
+        // Botão "Abrir no Navegador"
+        document.getElementById('downloadBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            createSparks(e);
+            openExternal(targetUrl);
+        });
     </script>
 </body>
 </html>
