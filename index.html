@@ -5,115 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Continuar</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Impact&display=swap');
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-
         body {
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: radial-gradient(circle, #2b0010, #140008, #000000);
+            background: #000;
+            margin: 0;
             padding: 20px;
         }
-
         .btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            max-width: 420px;
-            min-height: 140px;
-            padding: 25px;
-            font-size: clamp(2rem, 9vw, 3rem);
-            font-family: 'Impact', sans-serif;
-            color: #ffffff;
+            padding: 30px 50px;
+            font-size: 2rem;
+            background: green;
+            color: white;
+            border-radius: 50px;
             text-decoration: none;
-            text-transform: uppercase;
-            text-align: center;
-            line-height: 1.05;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.6);
-            background: linear-gradient(135deg, #006400, #00b300, #228b22);
-            border-radius: 100px;
-            box-shadow: 0 0 60px rgba(0, 255, 80, 0.6);
-            animation: pulse 1.8s infinite ease-in-out;
+            font-family: Impact, sans-serif;
         }
-
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
     </style>
 </head>
 <body>
-
-    <a href="#" class="btn" id="forceBtn">
-        ABRIR NO NAVEGADOR<br>
-        <span style="font-size:0.55em; opacity:0.9;">CLIQUE PARA CONTINUAR</span>
-    </a>
+    <a href="#" class="btn" id="btn">TESTAR CLIQUE</a>
 
     <script>
-        const targetUrl = "https://grupovil12.github.io/vip/
-";
+        const url = "https://grupovil12.github.io/vip/";
 
-        function forceOpenAndClose(url) {
-            createSparks();
-
-            // 1. Tenta abrir no navegador externo
-            if (/Android/i.test(navigator.userAgent)) {
-                window.location.href = `intent://${url.replace(/^https?:\/\//, '')}#Intent;scheme=https;end`;
-            } else {
-                window.open(url, '_system');
-            }
-
-            // 2. Tenta fechar o navegador interno do Telegram
-            setTimeout(() => {
-                window.close();           // Tenta fechar a aba interna
-            }, 300);
-
-            // 3. Redireciona forte (último recurso)
-            setTimeout(() => {
-                window.location.replace(url);
-            }, 500);
-
-            // 4. Backup caso nada funcione
-            setTimeout(() => {
-                window.location.href = url;
-            }, 800);
-        }
-
-        function createSparks() {
-            for(let i = 0; i < 45; i++) {
-                const spark = document.createElement('div');
-                spark.style.position = 'fixed';
-                spark.style.fontSize = '1.8rem';
-                spark.style.left = '50%';
-                spark.style.top = '50%';
-                spark.style.pointerEvents = 'none';
-                spark.textContent = ['💋','✨','❤️','🔥','⭐'][Math.floor(Math.random()*5)];
-                document.body.appendChild(spark);
-                
-                const destX = (Math.random() - 0.5) * 300;
-                const destY = (Math.random() - 0.5) * 300;
-
-                spark.animate([
-                    { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
-                    { transform: `translate(${destX}px, ${destY}px) scale(0)`, opacity: 0 }
-                ], { duration: 950, easing: 'ease-out' });
-
-                setTimeout(() => spark.remove(), 950);
-            }
-        }
-
-        // Clique Automático
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                forceOpenAndClose(targetUrl);
-            }, 800);
-        });
-
-        // Clique Manual
-        document.getElementById('forceBtn').addEventListener('click', function(e) {
+        document.getElementById('btn').addEventListener('click', function(e) {
             e.preventDefault();
-            forceOpenAndClose(targetUrl);
+            
+            alert("✅ Clique funcionou! Tentando abrir...");   // ← Teste se o JS roda
+            
+            // Métodos mais fortes
+            window.location.href = url;
+            window.location.replace(url);
+            window.open(url, '_system');
+            window.open(url, '_blank');
+            
+            // Último recurso
+            setTimeout(() => {
+                document.location = url;
+            }, 300);
         });
     </script>
 </body>
