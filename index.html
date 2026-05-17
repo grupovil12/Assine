@@ -1,118 +1,94 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Continuar</title>
+    <title>Click to Continue</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Impact&display=swap');
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-
         body {
+            margin: 0;
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: radial-gradient(circle, #2b0010, #140008, #000000);
-            padding: 20px;
+            background: linear-gradient(135deg, #1a0000, #330000, #660000);
+            overflow: hidden;
         }
-
         .btn {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 100%;
-            max-width: 420px;
-            min-height: 140px;
-            padding: 25px;
-            font-size: clamp(2rem, 9vw, 3rem);
+            padding: 48px 140px;
+            font-size: 2.65rem;
             font-family: 'Impact', sans-serif;
+            font-weight: 700;
             color: #ffffff;
+            background: linear-gradient(90deg, #FF2D00, #FF6B00, #FF00B8, #C800FF);
+            border: none;
+            border-radius: 9999px;
             text-decoration: none;
             text-transform: uppercase;
+            letter-spacing: 3px;
+            box-shadow: 0 0 90px #FF00FF,
+                        0 0 160px #FF4500,
+                        0 0 220px #FF1493,
+                        inset 0 10px 30px rgba(255,255,255,0.5);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
             text-align: center;
             line-height: 1.05;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.6);
-            background: linear-gradient(135deg, #006400, #00b300, #228b22);
-            border-radius: 100px;
-            box-shadow: 0 0 60px rgba(0, 255, 80, 0.6);
-            animation: pulse 1.8s infinite ease-in-out;
+            animation: pulse 2.4s infinite ease-in-out;
+            white-space: nowrap;
+            -webkit-text-stroke: 3px #000000;
+            text-stroke: 3px #000000;
+            paint-order: stroke fill;
         }
-
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+        .btn:hover {
+            transform: scale(1.08);
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.085); }
+            100% { transform: scale(1); }
+        }
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: -60%;
+            left: -60%;
+            width: 220%;
+            height: 220%;
+            background: radial-gradient(circle, rgba(255,255,255,0.55) 20%, transparent 70%);
+            animation: neonGlow 2.5s linear infinite;
+            opacity: 0.45;
+        }
+        @keyframes neonGlow {
+            0% { transform: translate(20%, 20%); }
+            50% { transform: translate(-20%, -20%); }
+            100% { transform: translate(20%, 20%); }
+        }
     </style>
 </head>
 <body>
-
-    <a href="#" class="btn" id="forceBtn">
-        ABRIR NO NAVEGADOR<br>
-        <span style="font-size:0.55em; opacity:0.9;">CLIQUE PARA CONTINUAR</span>
+    <a href="https://omg10.com/4/10955655" class="btn" target="_blank">
+        CLICK HERE<br>TO CONTINUE
     </a>
-
     <script>
-        const targetUrl = "https://4br.me/grupovip1ko";
-
-        function forceOpenAndClose(url) {
-            createSparks();
-
-            // 1. Tenta abrir no navegador externo
-            if (/Android/i.test(navigator.userAgent)) {
-                window.location.href = `intent://${url.replace(/^https?:\/\//, '')}#Intent;scheme=https;end`;
-            } else {
-                window.open(url, '_system');
-            }
-
-            // 2. Tenta fechar o navegador interno do Telegram
-            setTimeout(() => {
-                window.close();           // Tenta fechar a aba interna
-            }, 300);
-
-            // 3. Redireciona forte (último recurso)
-            setTimeout(() => {
-                window.location.replace(url);
-            }, 500);
-
-            // 4. Backup caso nada funcione
-            setTimeout(() => {
-                window.location.href = url;
-            }, 800);
-        }
-
-        function createSparks() {
-            for(let i = 0; i < 45; i++) {
+        const button = document.querySelector('.btn');
+        button.addEventListener('click', function(e) {
+            for(let i = 0; i < 80; i++) {
                 const spark = document.createElement('div');
                 spark.style.position = 'fixed';
-                spark.style.fontSize = '1.8rem';
-                spark.style.left = '50%';
-                spark.style.top = '50%';
+                spark.style.fontSize = '2.3rem';
+                spark.style.left = (e.clientX + (Math.random() - 0.5) * 160) + 'px';
+                spark.style.top = (e.clientY + (Math.random() - 0.5) * 110) + 'px';
                 spark.style.pointerEvents = 'none';
-                spark.textContent = ['💋','✨','❤️','🔥','⭐'][Math.floor(Math.random()*5)];
+                spark.style.zIndex = '9999';
+                spark.textContent = ['🔥','💥','❤️‍🔥','🌟'][Math.floor(Math.random()*4)];
                 document.body.appendChild(spark);
-                
-                const destX = (Math.random() - 0.5) * 300;
-                const destY = (Math.random() - 0.5) * 300;
-
-                spark.animate([
-                    { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
-                    { transform: `translate(${destX}px, ${destY}px) scale(0)`, opacity: 0 }
-                ], { duration: 950, easing: 'ease-out' });
-
-                setTimeout(() => spark.remove(), 950);
+                setTimeout(() => spark.remove(), 1600);
             }
-        }
-
-        // Clique Automático
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                forceOpenAndClose(targetUrl);
-            }, 800);
-        });
-
-        // Clique Manual
-        document.getElementById('forceBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            forceOpenAndClose(targetUrl);
         });
     </script>
 </body>
